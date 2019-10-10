@@ -89,3 +89,22 @@ rpms: build manpage sdist
 	--define "_specdir %{_topdir}" \
 	--define "_sourcedir  %{_topdir}" \
 	-ba okconfig.spec
+
+
+ps:
+	rm -f /tmp/*.ps /tmp/*.pdf
+	(cd  usr/bin/;a2ps2s1c.sh ./okconfig)
+	(cd  okconfig;a2ps2s1c.sh ./__init__.py)
+	(cd  okconfig;a2ps2s1c.sh ./config.py)  
+	(cd  okconfig;a2ps2s1c.sh ./helper_functions.py)
+	(cd  okconfig;a2ps2s1c.sh ./migration_tool.py)  
+	(cd  okconfig;a2ps2s1c.sh ./network_scan.py)
+
+pdf:
+	( cd /tmp; ps2pdf ./config.py.ps		   )
+	( cd /tmp; ps2pdf ./helper_functions.py.ps	   )
+	( cd /tmp; ps2pdf ./__init__.py.ps		   )
+	( cd /tmp; ps2pdf ./migration_tool.py.ps	   )
+	( cd /tmp; ps2pdf ./network_scan.py.ps	   )
+	( cd /tmp; ps2pdf ./okconfig.ps             )  
+	( ls -lrt /tmp/*.pdf)
